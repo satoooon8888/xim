@@ -58,7 +58,7 @@ class Proxies:
 				return True
 		return False
 
-	def __iter__(self):
+	def __iter__(self) -> iter:
 		return iter(self.proxies)
 
 
