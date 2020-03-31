@@ -49,8 +49,7 @@ def get_parser() -> argparse.ArgumentParser:
 	p_proxy_set.set_defaults(handler=proxy_set)
 
 	# proxy add
-	p_proxy_add = p_proxy_sub.add_parser("add", help="add input proxy")
-	p_proxy_add.add_argument("proxy_name", type=str)
+	p_proxy_add = p_proxy_sub.add_parser("add", help="add inputted proxy")
 	p_proxy_add.set_defaults(handler=proxy_add)
 
 	# proxy delete
