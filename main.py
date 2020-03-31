@@ -10,8 +10,10 @@ from commands.shell_list import shell_list
 from commands.shell_search import shell_search
 from commands.shell_uninstall import shell_uninstall
 
-from config import ConfigJSONFileStream, Config
-from proxy import ProxiesJSONFileStream, Proxies, Proxy
+from config import ConfigJSONFileStream
+from proxy import ProxiesJSONFileStream
+
+from const_setting import config_path, config_default, proxies_default, proxies_path
 
 import logger
 
@@ -88,11 +90,6 @@ def get_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-
-	config_path: str = "./xim.config.json"
-	proxies_path: str = "./xim_proxies.json"
-	config_default: Config = {"current_proxy": "__un_setting__"}
-	proxies_default: Proxies = Proxies([Proxy("noproxy", "", "", "", "")])
 	config_stream: ConfigJSONFileStream = ConfigJSONFileStream(config_path)
 	proxies_stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
 	if not config_stream.exists():
