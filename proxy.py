@@ -1,6 +1,6 @@
 import json
 from typing import List, TypedDict
-
+import os
 
 class ProxyDict(TypedDict):
 	name: str
@@ -82,3 +82,6 @@ class ProxiesJSONFileStream:
 			raw_proxies.append(raw_proxy)
 		with open(self.path, "wt") as f:
 			json.dump(raw_proxies, f)
+
+	def exists(self) -> bool:
+		return os.path.exists(self.path)

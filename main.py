@@ -10,7 +10,10 @@ from commands.shell_list import shell_list
 from commands.shell_search import shell_search
 from commands.shell_uninstall import shell_uninstall
 
-from typing import Callable
+from config import ConfigJSONFileStream, Config
+from proxy import ProxiesJSONFileStream, Proxies, Proxy
+
+import logger
 
 """
 xim current
@@ -26,7 +29,7 @@ xim shell list
 
 
 def get_parser() -> argparse.ArgumentParser:
-	parser = argparse.ArgumentParser(description="Xim is a Proxy Manager Tool.")
+	parser = argparse.ArgumentParser(description="Xim is a proxy manager tool.")
 	subparser = parser.add_subparsers()
 
 	# current
@@ -85,8 +88,23 @@ def get_parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+
+	config_path: str = "./xim.config.json"
+	proxies_path: str = "./xim_proxies.json"
+	config_default: Config = {"current_proxy": "__un_setting__"}
+	proxies_default: Proxies = Proxies([Proxy("noproxy", "", "", "", "")])
+	config_stream: ConfigJSONFileStream = ConfigJSONFileStream(config_path)
+	proxies_stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
+	if not config_stream.exists():
+		logger.warning("can't find xim.config.json. create default setting")
+		config_stream.save(config_default)
+	if not proxies_stream.exists():
+		logger.warning("can't find xim_proxies.json. create default setting")
+		proxies_stream.save(proxies_default)
+
 	parser: argparse.ArgumentParser = get_parser()
 	args: argparse.Namespace = parser.parse_args()
+
 	if hasattr(args, 'handler'):
 		# intellijで何故かargs.handlerがstrとされる
 		args.handler(args)
