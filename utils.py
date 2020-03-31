@@ -57,3 +57,7 @@ def input_with_default(prompt: str, prefill: str = ""):
 				data.append(c.decode())
 		putstr('\r\n')
 		return ''.join(data)
+
+
+class TerminateError(Exception):
+	pass

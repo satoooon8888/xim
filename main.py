@@ -14,6 +14,7 @@ from config import ConfigJSONFileStream
 from proxy import ProxiesJSONFileStream
 
 from const_setting import config_path, config_default, proxies_default, proxies_path
+from utils import TerminateError
 
 import logger
 
@@ -50,6 +51,7 @@ def get_parser() -> argparse.ArgumentParser:
 
 	# proxy add
 	p_proxy_add = p_proxy_sub.add_parser("add", help="add inputted proxy")
+	p_proxy_add.add_argument("proxy_name", type=str)
 	p_proxy_add.set_defaults(handler=proxy_add)
 
 	# proxy delete
@@ -103,7 +105,10 @@ def main() -> None:
 
 	if hasattr(args, 'handler'):
 		# intellijで何故かargs.handlerがstrとされる
-		args.handler(args)
+		try:
+			args.handler(args)
+		except TerminateError:
+			logger.error("terminated.")
 	else:
 		parser.print_help()
 

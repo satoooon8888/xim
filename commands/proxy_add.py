@@ -1,12 +1,16 @@
 from proxy import ProxiesJSONFileStream, Proxies, Proxy
 import argparse
-from utils import input_with_default
-from const_setting import proxies_path
+from utils import input_with_default, TerminateError
+from const_setting import proxies_path, un_setting_current_proxy
 import logger
 
 
-def create_proxy_from_input() -> Proxy:
-	name: str = input("proxy name: ")
+def create_proxy_from_input(name: str) -> Proxy:
+	if name == "":
+		raise TerminateError()
+	if name == un_setting_current_proxy:
+		logger.error("sorry, this name is already used by system. put a else name.")
+		raise TerminateError()
 	http: str = input_with_default("http: ", prefill="http://")
 	guessed_next_url = "https://" + http.split("http://")[1]
 	https: str = input_with_default("https: ", prefill=guessed_next_url)
@@ -18,7 +22,8 @@ def create_proxy_from_input() -> Proxy:
 
 
 def proxy_add(args: argparse.Namespace) -> None:
-	proxy: Proxy = create_proxy_from_input()
+	name: str = args.proxy_name
+	proxy: Proxy = create_proxy_from_input(name)
 	stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
 	proxies: Proxies = stream.load()
 	proxies.add(proxy)

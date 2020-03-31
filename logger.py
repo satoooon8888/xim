@@ -1,5 +1,5 @@
 def error(text: str) -> None:
-	print("Error: ".format(text))
+	print("Error: {}".format(text))
 
 
 def warning(text: str) -> None:
