@@ -1,10 +1,9 @@
 import argparse
-from proxy import ProxiesJSONFileStream, Proxies, Proxy
+from proxy import ProxiesJSONFileStream, Proxies
 from const_setting import proxies_path
-import logger
 
 
-def proxy_list(args):
+def proxy_list(args: argparse.Namespace):
 	stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
 	proxies: Proxies = stream.load()
 	log = ""
