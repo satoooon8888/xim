@@ -1,19 +1,32 @@
 import os
-
+from typing import TextIO
+import shutil
 
 class TmpFile:
-	def __init__(self, path):
+	def __init__(self, path) -> None:
 		self.file = open(path, "w")
 
-	def __enter__(self):
+	def __enter__(self) -> TextIO:
 		return self.file
 
-	def __exit__(self, exc_type, exc_val, exc_tb):
+	def __exit__(self, exc_type, exc_val, exc_tb) -> None:
 		self.file.close()
 		os.remove(self.file.name)
 
 
-def input_with_default(prompt: str, prefill: str = ""):
+class TmpDirectory:
+	def __init__(self, path: str) -> None:
+		self.path = path
+		os.mkdir(path)
+
+	def __enter__(self) -> None:
+		pass
+
+	def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+		shutil.rmtree(self.path)
+
+
+def input_with_default(prompt: str, prefill: str = "") -> str:
 	# https://stackoverflow.com/questions/2533120/show-default-value-for-editing-on-python-input-possible/2533134
 	# https://stackoverflow.com/questions/5403138/how-to-set-a-default-editable-string-for-raw-input/20351345
 	if os.name == "posix":
