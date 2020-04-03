@@ -92,6 +92,8 @@ def input_with_default(prompt: str, prefill: str = "") -> str:
 				data.append(c.decode())
 		putstr('\r\n')
 		return ''.join(data)
+	else:
+		raise HaveNotImplOSError()
 
 
 def remove_extension(file_name: str) -> str:

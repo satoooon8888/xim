@@ -21,8 +21,8 @@ def shell_install(args) -> None:
 
 	provider: GithubContentsInfoProvider = GithubContentsInfoProvider(files)
 	if provider.exists(file_name):
-		url: str = get_raw_shell_file_api_url() + "/" + file_name
-		content: str = fetch_file_content(url)
+		content_url: str = get_raw_shell_file_api_url() + "/" + file_name
+		content: str = fetch_file_content(content_url)
 		shells_path = "./" + get_shells_dirname()
 		file_system = ShellFilesSystem(shells_path)
 		file_system.save(file_name, content)

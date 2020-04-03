@@ -1,5 +1,5 @@
 import json
-from typing import List, TypedDict
+from typing import List, TypedDict, Iterator
 import os
 
 class ProxyDict(TypedDict):
@@ -58,7 +58,7 @@ class Proxies:
 				return True
 		return False
 
-	def __iter__(self) -> iter:
+	def __iter__(self) -> Iterator[Proxy]:
 		return iter(self.proxies)
 
 
