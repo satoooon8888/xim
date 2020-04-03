@@ -3,12 +3,24 @@ from typing import TextIO
 import shutil
 
 
+class CommandFailedError(Exception):
+	pass
+
+
 class HaveNotImplOSError(Exception):
 	pass
 
 
-class TerminateError(Exception):
-	pass
+class RequestResponseError(Exception):
+	def __init__(self, url: str, status_code: int):
+		self.url: str = url
+		self.status_code: int = status_code
+
+
+class RequestError(Exception):
+	def __init__(self, url: str, error: Exception):
+		self.url: str = url
+		self.error: Exception = error
 
 
 class TmpFile:
@@ -85,13 +97,3 @@ def input_with_default(prompt: str, prefill: str = "") -> str:
 def remove_extension(file_name: str) -> str:
 	return "".join(file_name.split(".")[0:-1])
 
-
-def get_shell_extension() -> str:
-	extension: str
-	if os.name == "nt":
-		extension = ".bat"
-	elif os.name == "posix":
-		extension = ".sh"
-	else:
-		raise HaveNotImplOSError()
-	return extension

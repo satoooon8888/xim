@@ -14,8 +14,10 @@ from config import ConfigJSONFileStream
 from proxy import ProxiesJSONFileStream
 
 from const_setting import config_path, config_default, proxies_default, proxies_path
-from utils import TerminateError
 
+from utils import CommandFailedError
+
+import sys
 import logger
 
 """
@@ -106,11 +108,16 @@ def main() -> None:
 	if hasattr(args, 'handler'):
 		# intellijで何故かargs.handlerがstrとされる
 		try:
+			# noinspection PyCallingNonCallable
 			args.handler(args)
-		except TerminateError:
-			logger.error("terminated.")
+		except CommandFailedError:
+			sys.exit(1)
+		else:
+			sys.exit(0)
 	else:
+		logger.error("Undefined command.")
 		parser.print_help()
+		sys.exit(1)
 
 
 if __name__ == "__main__":

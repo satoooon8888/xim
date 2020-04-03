@@ -1,10 +1,8 @@
 import requests
-from const_setting import content_api_shells_repository_root, windows_shells_dirname, linux_shells_dirname, \
-	raw_file_api_shells_repository_root
 import os
 import subprocess
 from typing import List, TypedDict
-from utils import remove_extension, HaveNotImplOSError
+from utils import remove_extension, RequestResponseError, RequestError
 
 
 class GithubFileLink(TypedDict):
@@ -26,21 +24,20 @@ class GithubFile(TypedDict):
 	_links: GithubFileLink
 
 
-def get_shells_dirname() -> str:
-	dirname: str
-	if os.name == "nt":
-		dirname = windows_shells_dirname
-	elif os.name == "posix":
-		dirname = linux_shells_dirname
-	else:
-		raise HaveNotImplOSError()
-	return dirname
-
-
-def fetch_files_on_server() -> List[GithubFile]:
-	location: str = content_api_shells_repository_root + get_shells_dirname()
-	files: List[GithubFile] = requests.get(location).json()
+def fetch_files_on_server(url: str) -> List[GithubFile]:
+	try:
+		response: requests.Response = requests.get(url)
+	except Exception as e:
+		raise RequestError(url, e)
+	if response.status_code != 200:
+		raise RequestResponseError(url, response.status_code)
+	files: List[GithubFile] = response.json()
 	return files
+
+
+def fetch_file_content(url: str) -> str:
+	content: str = requests.get(url).content.decode("utf-8")
+	return content
 
 
 class GithubContentsInfoProvider:
@@ -66,12 +63,6 @@ class GithubContentsInfoProvider:
 			if file_name == self.contents[i]["name"]:
 				return True
 		return False
-
-	@staticmethod
-	def fetch_file_content(shell_name: str) -> str:
-		file_url: str = raw_file_api_shells_repository_root + "/" + get_shells_dirname() + "/" + shell_name
-		content: str = requests.get(file_url).content.decode("utf-8")
-		return content
 
 
 class ShellFilesSystem:

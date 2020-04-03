@@ -7,4 +7,4 @@ def warning(text: str) -> None:
 
 
 def info(text: str) -> None:
-	print("Xim: {}".format(text))
+	print("{}".format(text))
