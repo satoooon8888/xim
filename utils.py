@@ -7,6 +7,10 @@ class HaveNotImplOSError(Exception):
 	pass
 
 
+class TerminateError(Exception):
+	pass
+
+
 class TmpFile:
 	def __init__(self, path) -> None:
 		self.file = open(path, "w")
@@ -35,6 +39,7 @@ def input_with_default(prompt: str, prefill: str = "") -> str:
 	# https://stackoverflow.com/questions/2533120/show-default-value-for-editing-on-python-input-possible/2533134
 	# https://stackoverflow.com/questions/5403138/how-to-set-a-default-editable-string-for-raw-input/20351345
 	if os.name == "posix":
+		# noinspection PyUnresolvedReferences
 		import readline
 
 		readline.set_startup_hook(lambda: readline.insert_text(prefill))
@@ -75,10 +80,6 @@ def input_with_default(prompt: str, prefill: str = "") -> str:
 				data.append(c.decode())
 		putstr('\r\n')
 		return ''.join(data)
-
-
-class TerminateError(Exception):
-	pass
 
 
 def remove_extension(file_name: str) -> str:
