@@ -2,6 +2,11 @@ import os
 from typing import TextIO
 import shutil
 
+
+class HaveNotImplOSError(Exception):
+	pass
+
+
 class TmpFile:
 	def __init__(self, path) -> None:
 		self.file = open(path, "w")
@@ -74,3 +79,18 @@ def input_with_default(prompt: str, prefill: str = "") -> str:
 
 class TerminateError(Exception):
 	pass
+
+
+def remove_extension(file_name: str) -> str:
+	return "".join(file_name.split(".")[0:-1])
+
+
+def get_shell_extension() -> str:
+	extension: str
+	if os.name == "nt":
+		extension = ".bat"
+	elif os.name == "posix":
+		extension = ".sh"
+	else:
+		raise HaveNotImplOSError()
+	return extension

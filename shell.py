@@ -1,22 +1,19 @@
 import requests
-from const_setting import shell_location, windows_shells_dirname, linux_shells_dirname, windows_shells_extension, \
-	linux_shells_extension, shell_raw_location
+from const_setting import content_api_shells_repository_root, windows_shells_dirname, linux_shells_dirname, \
+	raw_file_api_shells_repository_root
 import os
 import subprocess
 from typing import List, TypedDict
+from utils import remove_extension, HaveNotImplOSError
 
 
-class HaveNotImplOSError(Exception):
-	pass
-
-
-class GithubContentsLinks(TypedDict):
+class GithubFileLink(TypedDict):
 	self: str
 	git: str
 	html: str
 
 
-class GithubContents(TypedDict):
+class GithubFile(TypedDict):
 	name: str
 	path: str
 	sha: str
@@ -26,18 +23,7 @@ class GithubContents(TypedDict):
 	git_url: str
 	download_url: str
 	type: str
-	_links: GithubContentsLinks
-
-
-def get_shell_extension() -> str:
-	extension: str
-	if os.name == "nt":
-		extension = windows_shells_extension
-	elif os.name == "posix":
-		extension = linux_shells_extension
-	else:
-		raise HaveNotImplOSError()
-	return extension
+	_links: GithubFileLink
 
 
 def get_shells_dirname() -> str:
@@ -51,36 +37,39 @@ def get_shells_dirname() -> str:
 	return dirname
 
 
-class ShellsOnServer:
-	def __init__(self) -> None:
-		self.location: str = shell_location + get_shells_dirname()
-		self.shells: List[GithubContents] = requests.get(self.location).json()
+def fetch_files_on_server() -> List[GithubFile]:
+	location: str = content_api_shells_repository_root + get_shells_dirname()
+	files: List[GithubFile] = requests.get(location).json()
+	return files
+
+
+class GithubContentsInfoProvider:
+	def __init__(self, contents: List[GithubFile]) -> None:
+		self.contents: List[GithubFile] = contents
 
 	def list(self) -> List[str]:
-		shell_name_list = []
-		for i in range(len(self.shells)):
-			shell_name_list.append(self.shells[i]["name"])
-		return shell_name_list
+		content_name_list: List[str] = []
+		for i in range(len(self.contents)):
+			content_name_list.append(self.contents[i]["name"])
+		return content_name_list
 
-	def search(self, shell_name: str) -> List[str]:
-		shell_name_list: List[str] = []
-		shell_name += get_shell_extension()
-		for i in range(len(self.shells)):
-			if shell_name in self.shells[i]["name"]:
-				shell_name_list.append(self.shells[i]["name"])
-		return shell_name_list
+	def search(self, file_name: str) -> List[str]:
+		content_name_list: List[str] = []
+		for i in range(len(self.contents)):
+			content_name = remove_extension(self.contents[i]["name"])
+			if file_name in content_name:
+				content_name_list.append(self.contents[i]["name"])
+		return content_name_list
 
-	def exists(self, shell_name: str) -> bool:
-		shell_name += get_shell_extension()
-		for i in range(len(self.shells)):
-			if shell_name == self.shells[i]["name"]:
+	def exists(self, file_name: str) -> bool:
+		for i in range(len(self.contents)):
+			if file_name == self.contents[i]["name"]:
 				return True
 		return False
 
 	@staticmethod
-	def get_content(shell_name: str) -> str:
-		shell_name += get_shell_extension()
-		file_url: str = shell_raw_location + "/" + get_shells_dirname() + "/" + shell_name
+	def fetch_file_content(shell_name: str) -> str:
+		file_url: str = raw_file_api_shells_repository_root + "/" + get_shells_dirname() + "/" + shell_name
 		content: str = requests.get(file_url).content.decode("utf-8")
 		return content
 
@@ -90,20 +79,20 @@ class ShellFilesSystem:
 		self.path: str = path
 
 	def exists(self, shell_name: str) -> bool:
-		file_path = self.path + "/" + shell_name + get_shell_extension()
+		file_path = self.path + "/" + shell_name
 		return os.path.exists(file_path)
 
 	def run(self, shell_name: str, args: List[str]) -> subprocess.CompletedProcess:
-		file_path: str = self.path + "/" + shell_name + get_shell_extension()
+		file_path: str = self.path + "/" + shell_name
 		proc: subprocess.CompletedProcess = subprocess.run([file_path, *args])
 		return proc
 
 	def load(self, shell_name: str) -> str:
-		file_path: str = self.path + "/" + shell_name + get_shell_extension()
+		file_path: str = self.path + "/" + shell_name
 		with open(file_path, "rt") as f:
 			return f.read()
 
 	def save(self, shell_name: str, content: str) -> None:
-		file_path: str = self.path + "/" + shell_name + get_shell_extension()
+		file_path: str = self.path + "/" + shell_name
 		with open(file_path, "wt") as f:
 			f.write(content)
