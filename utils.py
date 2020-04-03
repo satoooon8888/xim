@@ -1,5 +1,5 @@
 import os
-from typing import TextIO
+from typing import TextIO, List
 import shutil
 
 
@@ -99,3 +99,8 @@ def input_with_default(prompt: str, prefill: str = "") -> str:
 def remove_extension(file_name: str) -> str:
 	return "".join(file_name.split(".")[0:-1])
 
+
+def get_file_list(path: str) -> List[str]:
+	files: List[str] = os.listdir(path)
+	files_file: List[str] = [f for f in files if os.path.isfile(os.path.join(path, f))]
+	return files_file

@@ -2,7 +2,7 @@ import requests
 import os
 import subprocess
 from typing import List, TypedDict
-from utils import remove_extension, RequestResponseError, RequestError
+from utils import remove_extension, RequestResponseError, RequestError, get_file_list
 
 
 class GithubFileLink(TypedDict):
@@ -88,6 +88,9 @@ class ShellFileSystem:
 		with open(file_path, "wt") as f:
 			f.write(content)
 	
-	def delete(self, file_name):
+	def delete(self, file_name: str) -> None:
 		file_path: str = self.path + "/" + file_name
 		os.remove(file_path)
+
+	def list(self):
+		return get_file_list(self.path)
