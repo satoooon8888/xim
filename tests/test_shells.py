@@ -7,7 +7,7 @@ def test_shells():
 		with TmpFile("./test_shells/test_shell.bat"):
 			with open("./test_shells/test_shell.bat", "wt") as ff:
 				ff.write("foobar")
-			system = ShellFilesSystem("test_shells")
+			system = ShellFileSystem("test_shells")
 			assert system.exists("test_shell.bat") is True
 			assert system.exists("foobar.bat") is False
 			assert system.load("test_shell.bat") == "foobar"

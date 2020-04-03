@@ -65,25 +65,29 @@ class GithubContentsInfoProvider:
 		return False
 
 
-class ShellFilesSystem:
+class ShellFileSystem:
 	def __init__(self, path: str) -> None:
 		self.path: str = path
 
-	def exists(self, shell_name: str) -> bool:
-		file_path = self.path + "/" + shell_name
+	def exists(self, file_name: str) -> bool:
+		file_path = self.path + "/" + file_name
 		return os.path.exists(file_path)
 
-	def run(self, shell_name: str, args: List[str]) -> subprocess.CompletedProcess:
-		file_path: str = self.path + "/" + shell_name
+	def run(self, file_name: str, args: List[str]) -> subprocess.CompletedProcess:
+		file_path: str = self.path + "/" + file_name
 		proc: subprocess.CompletedProcess = subprocess.run([file_path, *args])
 		return proc
 
-	def load(self, shell_name: str) -> str:
-		file_path: str = self.path + "/" + shell_name
+	def load(self, file_name: str) -> str:
+		file_path: str = self.path + "/" + file_name
 		with open(file_path, "rt") as f:
 			return f.read()
 
-	def save(self, shell_name: str, content: str) -> None:
-		file_path: str = self.path + "/" + shell_name
+	def save(self, file_name: str, content: str) -> None:
+		file_path: str = self.path + "/" + file_name
 		with open(file_path, "wt") as f:
 			f.write(content)
+	
+	def delete(self, file_name):
+		file_path: str = self.path + "/" + file_name
+		os.remove(file_path)

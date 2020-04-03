@@ -3,9 +3,10 @@ from os_wrap import get_shells_repository_content_api_url
 from typing import List
 from utils import remove_extension, RequestResponseError, CommandFailedError, RequestError
 import logger
+import argparse
 
 
-def shell_search(args) -> None:
+def shell_search(args: argparse.Namespace) -> None:
 	url: str = get_shells_repository_content_api_url()
 	try:
 		files: List[GithubFile] = fetch_files_on_server(url)
