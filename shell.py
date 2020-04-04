@@ -31,7 +31,7 @@ def fetch_files_on_server(url: str) -> List[GithubFile]:
 		"https": os.environ.get("HTTPS_PROXY", "")
 	}
 	try:
-		response: requests.Response = requests.get(url, proxy=proxy)
+		response: requests.Response = requests.get(url, proxies=proxy)
 	except Exception as e:
 		raise RequestError(url, e)
 	if response.status_code != 200:
@@ -47,7 +47,7 @@ def fetch_file_content(url: str) -> str:
 		"https": os.environ.get("HTTPS_PROXY", "")
 	}
 	try:
-		response: requests.Response = requests.get(url, proxy=proxy)
+		response: requests.Response = requests.get(url, proxies=proxy)
 	except Exception as e:
 		raise RequestError(url, e)
 	if response.status_code != 200:
