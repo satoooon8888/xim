@@ -23,7 +23,15 @@ def shell_install(args: argparse.Namespace) -> None:
 
 	provider: GithubContentsInfoProvider = GithubContentsInfoProvider(files)
 	if provider.exists(file_name):
-		content_url: str = get_raw_shell_file_api_url() + "/" + file_name
+		try:
+			content_url: str = get_raw_shell_file_api_url() + "/" + file_name
+		except RequestResponseError as e:
+			logger.error("Request Status {} failed.".format(e.status_code))
+			raise CommandFailedError()
+		except RequestError as e:
+			logger.error("Request failed. URL: {}".format(e.url))
+			logger.error(str(e.error))
+			raise CommandFailedError()
 		content: str = fetch_file_content(content_url)
 		file_system = ShellFileSystem(shells_path)
 		file_system.save(file_name, content)

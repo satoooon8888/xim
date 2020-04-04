@@ -5,6 +5,7 @@ from typing import List, TypedDict
 from utils import remove_extension, RequestResponseError, RequestError, get_file_list
 from os_wrap import convert_linux_path_to_running_os_path
 
+
 class GithubFileLink(TypedDict):
 	self: str
 	git: str
@@ -25,18 +26,34 @@ class GithubFile(TypedDict):
 
 
 def fetch_files_on_server(url: str) -> List[GithubFile]:
+	proxy = {
+		"http": os.environ.get("HTTP_PROXY", ""),
+		"https": os.environ.get("HTTPS_PROXY", "")
+	}
 	try:
-		response: requests.Response = requests.get(url)
+		response: requests.Response = requests.get(url, proxy=proxy)
 	except Exception as e:
 		raise RequestError(url, e)
 	if response.status_code != 200:
 		raise RequestResponseError(url, response.status_code)
+
 	files: List[GithubFile] = response.json()
 	return files
 
 
 def fetch_file_content(url: str) -> str:
-	content: str = requests.get(url).content.decode("utf-8")
+	proxy = {
+		"http": os.environ.get("HTTP_PROXY", ""),
+		"https": os.environ.get("HTTPS_PROXY", "")
+	}
+	try:
+		response: requests.Response = requests.get(url, proxy=proxy)
+	except Exception as e:
+		raise RequestError(url, e)
+	if response.status_code != 200:
+		raise RequestResponseError(url, response.status_code)
+
+	content: str = response.content.decode("utf-8")
 	return content
 
 
@@ -87,7 +104,7 @@ class ShellFileSystem:
 		file_path: str = self.path + "/" + file_name
 		with open(file_path, "wt") as f:
 			f.write(content)
-	
+
 	def delete(self, file_name: str) -> None:
 		file_path: str = self.path + "/" + file_name
 		os.remove(file_path)
