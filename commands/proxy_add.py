@@ -22,7 +22,7 @@ def proxy_add(args: argparse.Namespace) -> None:
 
 	name: str = args.proxy_name
 	if name == "":
-		logger.error("Empty argument is invalid")
+		logger.error("Empty name is invalid")
 		raise CommandFailedError()
 	if name == un_setting_current_proxy:
 		logger.error("Sorry, this name is already used by system. put a else name")
