@@ -1,6 +1,7 @@
 from shell import ShellFileSystem
 from proxy import ProxiesJSONFileStream, Proxies, Proxy
-from const_setting import proxies_path, shells_path
+from config import ConfigJSONFileStream, Config
+from const_setting import proxies_path, shells_path, config_path
 from utils import CommandFailedError, remove_extension
 from typing import List
 import subprocess
@@ -35,6 +36,11 @@ def proxy_set(args: argparse.Namespace) -> None:
 			logger.error("Timeout shell script")
 			raise CommandFailedError()
 		except KeyboardInterrupt as e:
-			logger.error("Keyboard interrupt. ")
+			logger.error("Keyboard interrupt")
 			raise CommandFailedError()
 		logger.info("Done")
+	logger.info("set proxy successfully")
+	config_stream: ConfigJSONFileStream = ConfigJSONFileStream(config_path)
+	config: Config = config_stream.load()
+	config["current_proxy"] = args.proxy_name
+	config_stream.save(config)
