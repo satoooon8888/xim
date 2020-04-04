@@ -108,7 +108,7 @@ def get_parser() -> argparse.ArgumentParser:
 		help="Install shell to set proxy from github (proxy depend HTTPS_PROXY)",
 		description="Install shell to set proxy from github (proxy depend HTTPS_PROXY)"
 	)
-	p_shell_install.add_argument("shell_name", type=str)
+	p_shell_install.add_argument("shell_name", type=str, help="e.g. \"HTTP_PROXY\" \"npm,git\"")
 	p_shell_install.set_defaults(handler=shell_install)
 
 	# shell uninstall
