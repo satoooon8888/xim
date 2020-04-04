@@ -18,6 +18,9 @@ class Proxy:
 		self.ftp = ftp
 		self.ssh = ssh
 
+	def url_list(self) -> List[str]:
+		return [self.http, self.https, self.ftp, self.ssh]
+
 
 class ConverterToProxyDictAndProxy:
 	@staticmethod
@@ -43,6 +46,12 @@ class ConverterToProxyDictAndProxy:
 class Proxies:
 	def __init__(self, proxies: List[Proxy]) -> None:
 		self.proxies = proxies
+
+	def get(self, name: str) -> Proxy:
+		for proxy in self.proxies:
+			if proxy.name == name:
+				return proxy
+		raise ValueError("Not found given name proxy.")
 
 	def add(self, proxy: Proxy) -> None:
 		self.proxies.append(proxy)

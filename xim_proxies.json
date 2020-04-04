@@ -1,1 +1,1 @@
-[{"name": "noproxy", "http": "", "https": "", "ftp": "", "ssh": ""}]
+[{"name": "noproxy", "http": "", "https": "", "ftp": "", "ssh": ""}, {"name": "foo", "http": "http://foo.jp/", "https": "https://foo.jp/", "ftp": "ftp://foo.jp/", "ssh": "ssh://foo.jp/"}, {"name": "foo", "http": "http://foo", "https": "https://foo", "ftp": "ftp://foo", "ssh": "ssh://foo"}]

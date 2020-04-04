@@ -3,7 +3,7 @@ import os
 import subprocess
 from typing import List, TypedDict
 from utils import remove_extension, RequestResponseError, RequestError, get_file_list
-
+from os_wrap import convert_linux_path_to_running_os_path
 
 class GithubFileLink(TypedDict):
 	self: str
@@ -73,9 +73,9 @@ class ShellFileSystem:
 		file_path = self.path + "/" + file_name
 		return os.path.exists(file_path)
 
-	def run(self, file_name: str, args: List[str]) -> subprocess.CompletedProcess:
-		file_path: str = self.path + "/" + file_name
-		proc: subprocess.CompletedProcess = subprocess.run([file_path, *args])
+	def run(self, file_name: str, args: List[str], timeout=20) -> subprocess.CompletedProcess:
+		file_path: str = convert_linux_path_to_running_os_path(self.path + "/" + file_name)
+		proc: subprocess.CompletedProcess = subprocess.run([file_path, *args], timeout=timeout)
 		return proc
 
 	def load(self, file_name: str) -> str:

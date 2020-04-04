@@ -32,3 +32,14 @@ def get_raw_shell_file_api_url():
 
 def get_shells_repository_content_api_url():
 	return content_api_shells_repository_root + get_shells_dirname()
+
+
+def convert_linux_path_to_running_os_path(path: str) -> str:
+	running_os_path: str
+	if os.name == "nt":
+		running_os_path = path.replace("/", "\\")
+	elif os.name == "posix":
+		running_os_path = path
+	else:
+		raise HaveNotImplOSError()
+	return running_os_path
