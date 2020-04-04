@@ -6,12 +6,6 @@ import logger
 
 
 def create_proxy_from_input(name: str) -> Proxy:
-	if name == "":
-		logger.error("Empty argument is invalid")
-		raise CommandFailedError()
-	if name == un_setting_current_proxy:
-		logger.error("Sorry, this name is already used by system. put a else name")
-		raise CommandFailedError()
 	http: str = input_with_default("http: ", prefill="http://")
 	guessed_next_url = "https://" + http.split("http://")[1]
 	https: str = input_with_default("https: ", prefill=guessed_next_url)
@@ -23,10 +17,20 @@ def create_proxy_from_input(name: str) -> Proxy:
 
 
 def proxy_add(args: argparse.Namespace) -> None:
-	name: str = args.proxy_name
-	proxy: Proxy = create_proxy_from_input(name)
 	stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
 	proxies: Proxies = stream.load()
+
+	name: str = args.proxy_name
+	if name == "":
+		logger.error("Empty argument is invalid")
+		raise CommandFailedError()
+	if name == un_setting_current_proxy:
+		logger.error("Sorry, this name is already used by system. put a else name")
+		raise CommandFailedError()
+	if proxies.exists(name):
+		logger.error("This name is already used")
+		raise CommandFailedError()
+	proxy: Proxy = create_proxy_from_input(name)
 	proxies.add(proxy)
 	stream.save(proxies)
 	logger.info("add inputted proxy")
