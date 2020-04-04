@@ -36,7 +36,7 @@ xim shell list
 def get_parser() -> argparse.ArgumentParser:
 	parser = argparse.ArgumentParser(
 		description="""
-		Xim is a proxy manager tool.
+		Xim is easy proxy changer.
 		See https://github.com/satoooon8888/xim
 		"""
 	)

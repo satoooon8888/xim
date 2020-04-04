@@ -1,16 +1,22 @@
-# overview
-Xim is a proxy manager CLI.  
+# Overview
+Xim is easy proxy changer CLI.  
+If you finish setting proxy URLs and installing shell,  
+you can set proxy with 1 command for all app.
 
-# usage
+# Usage
 ```shell script
 xim proxy add your_proxy_1  # input your proxy urls
 xim proxy add your_proxy_2  # same
 xim shell install pip,npm   # install shell to set proxy
 xim proxy set your_proxy_1  # set pip and npm config of proxy
-xim proxy set your_proxy_2  # change proxy setting easily
+xim proxy set your_proxy_2  # set proxy easily
 ```
 
-# specification
-Shell List: https://github.com/satoooon8888/xim_shells
+# Shell list
+https://github.com/satoooon8888/xim_shells  
+or  
+`xim shell search --all` 
 
-まだ実装中です！（）
+# Contribution
+Welcome to pull request!  
+If you want to add new shell, pull request to https://github.com/satoooon8888/xim_shells  
