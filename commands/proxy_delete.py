@@ -1,5 +1,5 @@
 import argparse
-from proxy import ProxiesJSONFileStream, Proxies, Proxy
+from proxy import ProxiesJSONFileStream, Proxies
 from const_setting import proxies_path
 import logger
 
@@ -11,6 +11,6 @@ def proxy_delete(args: argparse.Namespace) -> None:
 	if proxies.exists(name):
 		proxies.delete(name)
 	else:
-		logger.error("not found this name.")
+		logger.error("not found this name")
 	stream.save(proxies)
 	logger.info("add inputted proxy")

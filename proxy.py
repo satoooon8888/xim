@@ -51,7 +51,7 @@ class Proxies:
 		for proxy in self.proxies:
 			if proxy.name == name:
 				return proxy
-		raise ValueError("Not found given name proxy.")
+		raise ValueError("Not found given name proxy")
 
 	def add(self, proxy: Proxy) -> None:
 		self.proxies.append(proxy)

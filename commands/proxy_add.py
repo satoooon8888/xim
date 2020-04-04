@@ -7,10 +7,10 @@ import logger
 
 def create_proxy_from_input(name: str) -> Proxy:
 	if name == "":
-		logger.error("Empty argument is invalid.")
+		logger.error("Empty argument is invalid")
 		raise CommandFailedError()
 	if name == un_setting_current_proxy:
-		logger.error("Sorry, this name is already used by system. put a else name.")
+		logger.error("Sorry, this name is already used by system. put a else name")
 		raise CommandFailedError()
 	http: str = input_with_default("http: ", prefill="http://")
 	guessed_next_url = "https://" + http.split("http://")[1]

@@ -26,4 +26,4 @@ def shell_search(args: argparse.Namespace) -> None:
 		for name in match_shell_names:
 			logger.info(remove_extension(name))
 	else:
-		logger.error("Not matched shell file.")
+		logger.error("Not matched shell file")

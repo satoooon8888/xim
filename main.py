@@ -34,59 +34,107 @@ xim shell list
 
 
 def get_parser() -> argparse.ArgumentParser:
-	parser = argparse.ArgumentParser(description="Xim is a proxy manager tool.")
+	parser = argparse.ArgumentParser(
+		description="""
+		Xim is a proxy manager tool.
+		See https://github.com/satoooon8888/xim
+		"""
+	)
+	parser.set_defaults(handler=lambda x: parser.print_help())
 	subparser = parser.add_subparsers()
 
 	# current
-	p_current = subparser.add_parser("current", help="show current proxy")
+	p_current = subparser.add_parser(
+		"current",
+		help="Show current setting proxy name",
+		description="Show current setting proxy name"
+	)
 	p_current.set_defaults(handler=current)
 
 	# proxy
-	p_proxy = subparser.add_parser("proxy", help="see xim proxy -h")
+	p_proxy = subparser.add_parser(
+		"proxy",
+		help="See xim proxy -h."
+	)
 	p_proxy.set_defaults(handler=lambda args: p_proxy.print_help())
 	p_proxy_sub = p_proxy.add_subparsers()
 
 	# proxy set
-	p_proxy_set = p_proxy_sub.add_parser("set", help="set your proxy")
+	p_proxy_set = p_proxy_sub.add_parser(
+		"set",
+		help="Set proxy to app with named proxy setting.",
+		description="Set proxy to app with named proxy setting."
+	)
 	p_proxy_set.add_argument("proxy_name", type=str)
 	p_proxy_set.set_defaults(handler=proxy_set)
 
 	# proxy add
-	p_proxy_add = p_proxy_sub.add_parser("add", help="add inputted proxy")
+	p_proxy_add = p_proxy_sub.add_parser(
+		"add",
+		help="Save named proxy setting with inputted urls",
+		description="Save named proxy setting with inputted urls"
+	)
 	p_proxy_add.add_argument("proxy_name", type=str)
 	p_proxy_add.set_defaults(handler=proxy_add)
 
 	# proxy delete
-	p_proxy_delete = p_proxy_sub.add_parser("delete", help="delete proxy")
+	p_proxy_delete = p_proxy_sub.add_parser(
+		"delete",
+		help="Delete named proxy setting",
+		description="Delete named proxy setting"
+	)
 	p_proxy_delete.add_argument("proxy_name", type=str)
 	p_proxy_delete.set_defaults(handler=proxy_delete)
 
 	# proxy list
-	p_proxy_list = p_proxy_sub.add_parser("list", help="show proxy list")
+	p_proxy_list = p_proxy_sub.add_parser(
+		"list",
+		help="Show named proxy settings",
+		description="Show named proxy settings"
+	)
 	p_proxy_list.set_defaults(handler=proxy_list)
 
 	# shell
-	p_shell = subparser.add_parser("shell", help="see xim shell -h")
+	p_shell = subparser.add_parser(
+		"shell",
+		help="See xim shell -h",
+	)
 	p_shell.set_defaults(handler=lambda args: p_shell.print_help())
 	p_shell_sub = p_shell.add_subparsers()
 
 	# shell install
-	p_shell_install = p_shell_sub.add_parser("install", help="install shell to set proxy from github")
+	p_shell_install = p_shell_sub.add_parser(
+		"install",
+		help="Install shell to set proxy from github",
+		description="Install shell to set proxy from github"
+	)
 	p_shell_install.add_argument("shell_name", type=str)
 	p_shell_install.set_defaults(handler=shell_install)
 
 	# shell uninstall
-	p_shell_uninstall = p_shell_sub.add_parser("uninstall", help="uninstall shell")
+	p_shell_uninstall = p_shell_sub.add_parser(
+		"uninstall",
+		help="Uninstall shell",
+		description="Uninstall shell"
+	)
 	p_shell_uninstall.add_argument("shell_name", type=str)
 	p_shell_uninstall.set_defaults(handler=shell_uninstall)
 
 	# shell search
-	p_shell_search = p_shell_sub.add_parser("search", help="search a shell from github")
+	p_shell_search = p_shell_sub.add_parser(
+		"search",
+		help="Search github for shell to set proxy",
+		description="Search github for shell to set proxy"
+	)
 	p_shell_search.add_argument("shell_name", type=str)
 	p_shell_search.set_defaults(handler=shell_search)
 
 	# shell list
-	p_shell_list = p_shell_sub.add_parser("list", help="show installed shell list")
+	p_shell_list = p_shell_sub.add_parser(
+		"list",
+		help="Show installed shell list",
+		description="Show installed shell list"
+	)
 	p_shell_list.set_defaults(handler=shell_list)
 
 	return parser
@@ -115,7 +163,7 @@ def main() -> None:
 		else:
 			sys.exit(0)
 	else:
-		logger.error("Undefined command.")
+		logger.error("Undefined command")
 		parser.print_help()
 		sys.exit(1)
 

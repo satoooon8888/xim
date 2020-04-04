@@ -14,4 +14,4 @@ def shell_list(args: argparse.Namespace) -> None:
 		for file in files:
 			logger.info(remove_extension(file))
 	else:
-		logger.info("No installed shell file.")
+		logger.info("No installed shell file")

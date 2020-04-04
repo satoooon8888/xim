@@ -27,6 +27,6 @@ def shell_install(args: argparse.Namespace) -> None:
 		content: str = fetch_file_content(content_url)
 		file_system = ShellFileSystem(shells_path)
 		file_system.save(file_name, content)
-		logger.info("Install success.")
+		logger.info("Install success")
 	else:
-		logger.error("Not found shell file.")
+		logger.error("Not found shell file")

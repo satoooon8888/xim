@@ -8,6 +8,6 @@ def current(args) -> None:
 	config: Config = stream.load()
 	current_proxy: str = config["current_proxy"]
 	if current_proxy == un_setting_current_proxy:
-		logger.info("haven't set proxy yet.")
+		logger.info("haven't set proxy yet")
 		return
 	logger.info("current set proxy: {}".format(current_proxy))

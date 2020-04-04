@@ -11,7 +11,7 @@ def shell_uninstall(args: argparse.Namespace) -> None:
 	file_system: ShellFileSystem = ShellFileSystem(shells_path)
 	if file_system.exists(file_name):
 		file_system.delete(file_name)
-		logger.info("Successfully uninstall.")
+		logger.info("Successfully uninstall")
 	else:
-		logger.error("Not found shell file.")
+		logger.error("Not found shell file")
 		raise CommandFailedError()
