@@ -13,12 +13,14 @@ from commands.shell_uninstall import shell_uninstall
 from config import ConfigJSONFileStream
 from proxy import ProxiesJSONFileStream
 
-from const_setting import config_path, config_default, proxies_default, proxies_path
+from const_setting import config_path, config_default, proxies_default, proxies_path, shells_path
 
 from utils import CommandFailedError
 
-import sys
 import logger
+
+import sys
+import os
 
 """
 xim current
@@ -141,15 +143,23 @@ def get_parser() -> argparse.ArgumentParser:
 	return parser
 
 
-def main() -> None:
+def init():
 	config_stream: ConfigJSONFileStream = ConfigJSONFileStream(config_path)
 	proxies_stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
+
 	if not config_stream.exists():
-		logger.warning("can't find xim.config.json. create default setting")
+		logger.info("Can't find xim.config.json. Create default setting")
 		config_stream.save(config_default)
 	if not proxies_stream.exists():
-		logger.warning("can't find xim_proxies.json. create default setting")
+		logger.info("Can't find xim_proxies.json. Create default setting")
 		proxies_stream.save(proxies_default)
+	if not os.path.exists(shells_path):
+		logger.info("Can't find shell directory. Create directory")
+		os.mkdir("shells")
+
+
+def main() -> None:
+	init()
 
 	parser: argparse.ArgumentParser = get_parser()
 	args: argparse.Namespace = parser.parse_args()
