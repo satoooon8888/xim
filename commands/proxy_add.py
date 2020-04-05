@@ -9,11 +9,7 @@ def create_proxy_from_input(name: str) -> Proxy:
 	http: str = input_with_default("http: ", prefill="http://")
 	guessed_next_url = "https://" + http.split("http://")[1]
 	https: str = input_with_default("https: ", prefill=guessed_next_url)
-	guessed_next_url = "ftp://" + http.split("http://")[1]
-	ftp: str = input_with_default("ftp: ", prefill=guessed_next_url)
-	guessed_next_url = "ssh://" + http.split("http://")[1]
-	ssh: str = input_with_default("ssh: ", prefill=guessed_next_url)
-	return Proxy(name, http, https, ftp, ssh)
+	return Proxy(name, http, https)
 
 
 def proxy_add(args: argparse.Namespace) -> None:

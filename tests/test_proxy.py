@@ -9,9 +9,7 @@ def test_proxy_stream():
 			Proxy(
 				"test",
 				"http://test",
-				"https://test",
-				"ftp://test",
-				"ssh://test"
+				"https://test"
 			)
 		])
 		stream.save(saving_proxies)
@@ -22,9 +20,7 @@ def test_proxy_stream():
 			Proxy(
 				"test2",
 				"http://test",
-				"https://test",
-				"ftp://test",
-				"ssh://test"
+				"https://test"
 			)
 		)
 		assert loaded_proxies.exists("test2") is True

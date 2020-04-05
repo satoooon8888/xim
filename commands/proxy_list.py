@@ -14,7 +14,5 @@ def proxy_list(args: argparse.Namespace):
 	for proxy in proxies:
 		log += proxy.name + " " * (longest_name_length - len(proxy.name)) + "http : " + proxy.http + "\n"
 		log += " " * longest_name_length + "https: " + proxy.https + "\n"
-		log += " " * longest_name_length + "ftp  : " + proxy.ftp + "\n"
-		log += " " * longest_name_length + "ssh  : " + proxy.ssh + "\n"
 		log += "\n"
 	print(log)

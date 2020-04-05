@@ -2,24 +2,21 @@ import json
 from typing import List, TypedDict, Iterator
 import os
 
+
 class ProxyDict(TypedDict):
 	name: str
 	http: str
 	https: str
-	ftp: str
-	ssh: str
 
 
 class Proxy:
-	def __init__(self, name: str, http: str, https: str, ftp: str, ssh: str) -> None:
+	def __init__(self, name: str, http: str, https: str) -> None:
 		self.name = name
 		self.http = http
 		self.https = https
-		self.ftp = ftp
-		self.ssh = ssh
 
 	def url_list(self) -> List[str]:
-		return [self.http, self.https, self.ftp, self.ssh]
+		return [self.http, self.https]
 
 
 class ConverterToProxyDictAndProxy:
@@ -28,18 +25,14 @@ class ConverterToProxyDictAndProxy:
 		name: str = proxy_dict["name"]
 		http: str = proxy_dict["http"]
 		https: str = proxy_dict["https"]
-		ftp: str = proxy_dict["ftp"]
-		ssh: str = proxy_dict["ssh"]
-		return Proxy(name, http, https, ftp, ssh)
+		return Proxy(name, http, https)
 
 	@staticmethod
 	def convert_to_proxy_dict(proxy: Proxy) -> ProxyDict:
 		return {
 			"name": proxy.name,
 			"http": proxy.http,
-			"https": proxy.https,
-			"ftp": proxy.ftp,
-			"ssh": proxy.ssh
+			"https": proxy.https
 		}
 
 
