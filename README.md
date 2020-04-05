@@ -3,13 +3,20 @@ Xim is easy proxy changer CLI.
 If you finish setting proxy URLs and installing shell,  
 you can set proxy with 1 command for all app.
 
+# Installation
+```shell script
+$ git clone https://github.com/satoooon8888/xim.git
+$ cd xim
+$ pip install -e .
+```
+
 # Usage
 ```shell script
-xim proxy add your_proxy_1  # input your proxy urls
-xim proxy add your_proxy_2  # same
-xim shell install pip,npm   # install shell to set proxy
-xim proxy set your_proxy_1  # set pip and npm config of proxy
-xim proxy set your_proxy_2  # set proxy easily
+$ xim proxy add your_proxy_1  # input your proxy urls
+$ xim proxy add your_proxy_2  # same
+$ xim shell install pip,npm   # install shell to set proxy
+$ xim proxy set your_proxy_1  # set pip and npm config of proxy
+$ xim proxy set your_proxy_2  # set proxy easily
 ```
 
 # Shell list
