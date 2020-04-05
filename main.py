@@ -124,9 +124,10 @@ def get_parser() -> argparse.ArgumentParser:
 	p_shell_search = p_shell_sub.add_parser(
 		"search",
 		help="Search github for shell to set proxy",
-		description="Search github for shell to set proxy"
+		description="Search github for shell to set proxy. required shell_name or --all"
 	)
-	p_shell_search.add_argument("shell_name", type=str)
+	p_shell_search.add_argument("shell_name", type=str, nargs="?", default="")
+	p_shell_search.add_argument("--all", action="store_true", help="show all shell name")
 	p_shell_search.set_defaults(handler=shell_search)
 
 	# shell list
