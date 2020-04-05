@@ -155,7 +155,7 @@ def init():
 		proxies_stream.save(proxies_default)
 	if not os.path.exists(shells_path):
 		logger.info("Can't find shell directory. Create directory")
-		os.mkdir("shells")
+		os.mkdir("./shells")
 
 
 def main() -> None:
