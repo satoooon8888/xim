@@ -5,9 +5,7 @@ you can set proxy with 1 command for all app.
 
 # Installation
 ```shell script
-$ git clone https://github.com/satoooon8888/xim.git
-$ cd xim
-$ pip install -e .
+$ pip install git+https://github.com/satoooon8888/xim.git
 ```
 
 # Usage
