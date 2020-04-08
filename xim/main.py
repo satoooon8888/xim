@@ -144,7 +144,6 @@ def get_parser() -> argparse.ArgumentParser:
 
 
 def init():
-	print(config_path)
 	config_stream: ConfigJSONFileStream = ConfigJSONFileStream(config_path)
 	proxies_stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
 
