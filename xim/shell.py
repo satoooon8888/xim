@@ -2,8 +2,8 @@ import requests
 import os
 import subprocess
 from typing import List, TypedDict
-from utils import remove_extension, RequestResponseError, RequestError, get_file_list
-from os_wrap import convert_linux_path_to_running_os_path
+from xim.utils import remove_extension, RequestResponseError, RequestError, get_file_list
+from xim.os_wrap import convert_linux_path_to_running_os_path
 
 
 class GithubFileLink(TypedDict):

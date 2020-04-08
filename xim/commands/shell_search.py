@@ -1,8 +1,8 @@
-from shell import fetch_files_on_server, GithubContentsInfoProvider, GithubFile
-from os_wrap import get_shells_repository_content_api_url
+from xim.shell import fetch_files_on_server, GithubContentsInfoProvider, GithubFile
+from xim.os_wrap import get_shells_repository_content_api_url
 from typing import List
-from utils import remove_extension, RequestResponseError, CommandFailedError, RequestError
-import logger
+from xim.utils import remove_extension, RequestResponseError, CommandFailedError, RequestError
+from xim import logger
 import argparse
 
 

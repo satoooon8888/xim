@@ -1,12 +1,12 @@
-from shell import ShellFileSystem
-from proxy import ProxiesJSONFileStream, Proxies, Proxy
-from config import ConfigJSONFileStream, Config
-from const_setting import proxies_path, shells_path, config_path
-from utils import CommandFailedError, remove_extension
+from xim.shell import ShellFileSystem
+from xim.proxy import ProxiesJSONFileStream, Proxies, Proxy
+from xim.config import ConfigJSONFileStream, Config
+from xim.const_setting import proxies_path, shells_path, config_path
+from xim.utils import CommandFailedError, remove_extension
 from typing import List
 import subprocess
 import argparse
-import logger
+from xim import logger
 
 
 def proxy_set(args: argparse.Namespace) -> None:

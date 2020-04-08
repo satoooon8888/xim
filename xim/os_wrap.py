@@ -1,7 +1,7 @@
 import os
-from const_setting import windows_shells_dirname, linux_shells_dirname, windows_shells_extension, \
+from xim.const_setting import windows_shells_dirname, linux_shells_dirname, windows_shells_extension, \
 	linux_shells_extension, content_api_shells_repository_root, raw_file_api_shells_repository_root
-from utils import HaveNotImplOSError
+from xim.utils import HaveNotImplOSError
 
 
 def get_shells_dirname() -> str:

@@ -1,5 +1,5 @@
-from config import ConfigJSONFileStream, Config
-from utils import TmpFile
+from xim.config import ConfigJSONFileStream, Config
+from xim.utils import TmpFile
 
 
 def test_config():

@@ -1,9 +1,13 @@
-from config import Config
-from proxy import Proxies, Proxy
+from xim.config import Config
+from xim.proxy import Proxies, Proxy
+import os
 
-config_path: str = "./xim.config.json"
-proxies_path: str = "./xim_proxies.json"
-shells_path: str = "./shells"
+cwd: str = os.path.dirname(__file__)
+
+
+config_path: str = os.path.join(cwd, "xim.config.json")
+proxies_path: str = os.path.join(cwd, "xim_proxies.json")
+shells_path: str = os.path.join(cwd, "shells")
 un_setting_current_proxy = "__un_setting__"
 config_default: Config = {"current_proxy": un_setting_current_proxy}
 proxies_default: Proxies = Proxies([Proxy("no_set", "", "")])

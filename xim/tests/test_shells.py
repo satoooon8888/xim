@@ -1,5 +1,5 @@
-from utils import TmpFile, TmpDirectory
-from shell import *
+from xim.utils import TmpFile, TmpDirectory
+from xim.shell import *
 
 
 def test_shells():

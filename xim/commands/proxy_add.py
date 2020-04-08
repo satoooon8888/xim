@@ -1,8 +1,8 @@
-from proxy import ProxiesJSONFileStream, Proxies, Proxy
+from xim.proxy import ProxiesJSONFileStream, Proxies, Proxy
 import argparse
-from utils import input_with_default, CommandFailedError
-from const_setting import proxies_path, un_setting_current_proxy
-import logger
+from xim.utils import input_with_default, CommandFailedError
+from xim.const_setting import proxies_path, un_setting_current_proxy
+from xim import logger
 
 
 def create_proxy_from_input(name: str) -> Proxy:

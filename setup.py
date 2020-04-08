@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
 	name="xim",
@@ -6,7 +6,9 @@ setup(
 	install_requires=["requests"],
 	entry_points={
 		"console_scripts": [
-			"xim = main:main"
+			"xim = xim.main:main"
 		]
-	}
+	},
+	packages=find_packages(),
+
 )

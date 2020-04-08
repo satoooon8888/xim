@@ -1,8 +1,8 @@
-from shell import ShellFileSystem
-from const_setting import shells_path
+from xim.shell import ShellFileSystem
+from xim.const_setting import shells_path
 from typing import List
-from utils import remove_extension
-import logger
+from xim.utils import remove_extension
+from xim import logger
 import argparse
 
 

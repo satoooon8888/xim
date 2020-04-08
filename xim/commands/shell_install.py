@@ -1,10 +1,10 @@
-from shell import GithubFile, GithubContentsInfoProvider, fetch_files_on_server, fetch_file_content, ShellFileSystem
+from xim.shell import GithubFile, GithubContentsInfoProvider, fetch_files_on_server, fetch_file_content, ShellFileSystem
 from typing import List
-from utils import RequestResponseError, CommandFailedError, RequestError
-from os_wrap import get_shell_extension, get_raw_shell_file_api_url, \
+from xim.utils import RequestResponseError, CommandFailedError, RequestError
+from xim.os_wrap import get_shell_extension, get_raw_shell_file_api_url, \
 	get_shells_repository_content_api_url
-from const_setting import shells_path
-import logger
+from xim.const_setting import shells_path
+from xim import logger
 import argparse
 
 

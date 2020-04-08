@@ -1,5 +1,5 @@
-from proxy import *
-from utils import TmpFile
+from xim.proxy import *
+from xim.utils import TmpFile
 
 
 def test_proxy_stream():

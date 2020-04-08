@@ -1,7 +1,7 @@
 import argparse
-from proxy import ProxiesJSONFileStream, Proxies
-from const_setting import proxies_path
-import logger
+from xim.proxy import ProxiesJSONFileStream, Proxies
+from xim.const_setting import proxies_path
+from xim import logger
 
 
 def proxy_delete(args: argparse.Namespace) -> None:

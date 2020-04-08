@@ -1,6 +1,6 @@
 import argparse
-from proxy import ProxiesJSONFileStream, Proxies
-from const_setting import proxies_path
+from xim.proxy import ProxiesJSONFileStream, Proxies
+from xim.const_setting import proxies_path
 
 
 def proxy_list(args: argparse.Namespace):

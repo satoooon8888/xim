@@ -1,23 +1,23 @@
 import argparse
 
-from commands.current import current
-from commands.proxy_add import proxy_add
-from commands.proxy_delete import proxy_delete
-from commands.proxy_list import proxy_list
-from commands.proxy_set import proxy_set
-from commands.shell_install import shell_install
-from commands.shell_list import shell_list
-from commands.shell_search import shell_search
-from commands.shell_uninstall import shell_uninstall
+from xim.commands.current import current
+from xim.commands.proxy_add import proxy_add
+from xim.commands.proxy_delete import proxy_delete
+from xim.commands.proxy_list import proxy_list
+from xim.commands.proxy_set import proxy_set
+from xim.commands.shell_install import shell_install
+from xim.commands.shell_list import shell_list
+from xim.commands.shell_search import shell_search
+from xim.commands.shell_uninstall import shell_uninstall
 
-from config import ConfigJSONFileStream
-from proxy import ProxiesJSONFileStream
+from xim.config import ConfigJSONFileStream
+from xim.proxy import ProxiesJSONFileStream
 
-from const_setting import config_path, config_default, proxies_default, proxies_path, shells_path
+from xim.const_setting import config_path, config_default, proxies_default, proxies_path, shells_path
 
-from utils import CommandFailedError
+from xim.utils import CommandFailedError
 
-import logger
+from xim import logger
 
 import sys
 import os
@@ -144,6 +144,7 @@ def get_parser() -> argparse.ArgumentParser:
 
 
 def init():
+	print(config_path)
 	config_stream: ConfigJSONFileStream = ConfigJSONFileStream(config_path)
 	proxies_stream: ProxiesJSONFileStream = ProxiesJSONFileStream(proxies_path)
 
@@ -155,7 +156,7 @@ def init():
 		proxies_stream.save(proxies_default)
 	if not os.path.exists(shells_path):
 		logger.info("Can't find shell directory. Create directory")
-		os.mkdir("./shells")
+		os.mkdir(shells_path)
 
 
 def main() -> None:

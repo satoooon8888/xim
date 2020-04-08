@@ -1,6 +1,6 @@
-from config import ConfigJSONFileStream, Config
-from const_setting import config_path, un_setting_current_proxy
-import logger
+from xim.config import ConfigJSONFileStream, Config
+from xim.const_setting import config_path, un_setting_current_proxy
+from xim import logger
 
 
 def current(args) -> None:

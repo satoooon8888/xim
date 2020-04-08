@@ -1,9 +1,9 @@
-from shell import ShellFileSystem
-from os_wrap import get_shell_extension
+from xim.shell import ShellFileSystem
+from xim.os_wrap import get_shell_extension
 import argparse
-import logger
-from utils import CommandFailedError
-from const_setting import shells_path
+from xim import logger
+from xim.utils import CommandFailedError
+from xim.const_setting import shells_path
 
 
 def shell_uninstall(args: argparse.Namespace) -> None:
